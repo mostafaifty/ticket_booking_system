@@ -23,6 +23,18 @@ class DashboardController extends Controller
             'cancelled_trips' => $user->bookings()->where('status', Booking::STATUS_CANCELLED)->count(),
         ];
 
-        return view('passenger.dashboard', compact('user', 'stats'));
+        $recentBookings = $user->bookings()
+            ->with([
+                'trainSchedule.train',
+                'trainSchedule.departureStation',
+                'trainSchedule.arrivalStation',
+                'seat',
+                'passenger',
+            ])
+            ->latest()
+            ->take(5)
+            ->get();
+
+        return view('passenger.dashboard', compact('user', 'stats', 'recentBookings'));
     }
 }

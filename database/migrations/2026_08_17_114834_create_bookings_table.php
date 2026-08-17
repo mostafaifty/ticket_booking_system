@@ -22,8 +22,8 @@ return new class extends Migration
             $table->string('status', 20)->default('confirmed')->index(); // 'confirmed', 'pending', 'cancelled', 'refunded'
             $table->timestamps();
 
-            // Prevent duplicate booking of the same seat on the same train schedule
-            $table->unique(['train_schedule_id', 'seat_id'], 'unique_schedule_seat_booking');
+            // Index for querying schedule seat bookings by status
+            $table->index(['train_schedule_id', 'seat_id', 'status'], 'schedule_seat_status_index');
             $table->index(['user_id', 'status']);
         });
     }

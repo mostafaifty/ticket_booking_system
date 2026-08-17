@@ -91,4 +91,75 @@ class Booking extends Model
     {
         return $query->where('status', self::STATUS_CONFIRMED);
     }
+
+    /**
+     * Scope query to cancelled bookings.
+     */
+    public function scopeCancelled($query)
+    {
+        return $query->where('status', self::STATUS_CANCELLED);
+    }
+
+    /**
+     * Check if this booking is currently eligible for cancellation.
+     */
+    public function isCancellable(): bool
+    {
+        if ($this->status !== self::STATUS_CONFIRMED) {
+            return false;
+        }
+
+        if (!$this->trainSchedule) {
+            return false;
+        }
+
+        if (in_array($this->trainSchedule->status, [
+            TrainSchedule::STATUS_CANCELLED,
+            TrainSchedule::STATUS_COMPLETED,
+            TrainSchedule::STATUS_DEPARTED,
+        ])) {
+            return false;
+        }
+
+        $journeyDate = $this->trainSchedule->journey_date ? $this->trainSchedule->journey_date->format('Y-m-d') : null;
+        $departureTime = $this->trainSchedule->departure_time ?: '00:00:00';
+
+        if (!$journeyDate) {
+            return false;
+        }
+
+        $departureDateTime = \Carbon\Carbon::parse("{$journeyDate} {$departureTime}");
+
+        return $departureDateTime->isFuture();
+    }
+
+    /**
+     * Formatted booking date (e.g. 17 Aug, 2026 - 09:30 PM).
+     */
+    public function getFormattedBookingDateAttribute(): string
+    {
+        return $this->booking_date ? $this->booking_date->format('d M, Y - h:i A') : 'N/A';
+    }
+
+    /**
+     * Formatted total fare in BDT (৳).
+     */
+    public function getFormattedFareAttribute(): string
+    {
+        return '৳ ' . number_format($this->total_fare, 2);
+    }
+
+    /**
+     * Bootstrap / AdminLTE status badge color class.
+     */
+    public function getStatusBadgeClassAttribute(): string
+    {
+        return match ($this->status) {
+            self::STATUS_CONFIRMED => 'badge-success',
+            self::STATUS_PENDING => 'badge-warning',
+            self::STATUS_CANCELLED => 'badge-danger',
+            self::STATUS_REFUNDED => 'badge-info',
+            default => 'badge-secondary',
+        };
+    }
 }

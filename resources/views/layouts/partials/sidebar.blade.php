@@ -70,16 +70,23 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="#" class="nav-link disabled text-muted">
+                            <a href="{{ route('admin.schedules.index') }}" class="nav-link {{ request()->routeIs('admin.schedules.*') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-calendar-alt"></i>
-                                <p>Schedules (Inc. 4)</p>
+                                <p>Schedules</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a href="#" class="nav-link disabled text-muted">
+                            <a href="{{ route('trains.search') }}" class="nav-link {{ request()->routeIs('trains.search') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-search"></i>
+                                <p>Search Trains</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('admin.bookings.index') }}" class="nav-link {{ request()->routeIs('admin.bookings.*') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-ticket-alt"></i>
-                                <p>All Bookings (Inc. 8)</p>
+                                <p>All Bookings</p>
                             </a>
                         </li>
                     @else
@@ -94,23 +101,23 @@
                         </li>
 
                         <li class="nav-item">
+                            <a href="{{ route('trains.search') }}" class="nav-link {{ request()->routeIs('trains.search') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-search"></i>
+                                <p>Search Trains</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('passenger.bookings.index') }}" class="nav-link {{ request()->routeIs('passenger.bookings.*') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-clipboard-list"></i>
+                                <p>My Bookings</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
                             <a href="{{ route('passenger.profile') }}" class="nav-link {{ request()->routeIs('passenger.profile') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-user-cog"></i>
                                 <p>My Profile</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="#" class="nav-link disabled text-muted">
-                                <i class="nav-icon fas fa-search"></i>
-                                <p>Search Trains (Inc. 5)</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="#" class="nav-link disabled text-muted">
-                                <i class="nav-icon fas fa-clipboard-list"></i>
-                                <p>My Bookings (Inc. 8)</p>
                             </a>
                         </li>
                     @endif

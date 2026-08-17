@@ -50,8 +50,8 @@
             <div class="icon">
                 <i class="fas fa-calendar-alt"></i>
             </div>
-            <a href="#" class="small-box-footer">
-                Manage Schedules (Inc. 4) <i class="fas fa-arrow-circle-right"></i>
+            <a href="{{ route('admin.schedules.index') }}" class="small-box-footer">
+                Manage Schedules <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>
     </div>

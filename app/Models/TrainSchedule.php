@@ -103,4 +103,63 @@ class TrainSchedule extends Model
     {
         return $query->where('status', self::STATUS_SCHEDULED);
     }
+
+    /**
+     * Scope query to search for train routes by stations and date.
+     */
+    public function scopeSearch($query, ?int $departureStationId = null, ?int $arrivalStationId = null, ?string $journeyDate = null)
+    {
+        if ($departureStationId) {
+            $query->where('departure_station_id', $departureStationId);
+        }
+
+        if ($arrivalStationId) {
+            $query->where('arrival_station_id', $arrivalStationId);
+        }
+
+        if ($journeyDate) {
+            $query->whereDate('journey_date', $journeyDate);
+        }
+
+        return $query;
+    }
+
+    /**
+     * Formatted departure time (e.g. 07:00 AM).
+     */
+    public function getFormattedDepartureTimeAttribute(): string
+    {
+        return $this->departure_time ? date('h:i A', strtotime($this->departure_time)) : 'N/A';
+    }
+
+    /**
+     * Formatted arrival time (e.g. 12:30 PM).
+     */
+    public function getFormattedArrivalTimeAttribute(): string
+    {
+        return $this->arrival_time ? date('h:i A', strtotime($this->arrival_time)) : 'N/A';
+    }
+
+    /**
+     * Formatted journey date (e.g. 17 Aug 2026).
+     */
+    public function getFormattedJourneyDateAttribute(): string
+    {
+        return $this->journey_date ? $this->journey_date->format('d M, Y') : 'N/A';
+    }
+
+    /**
+     * Bootstrap / AdminLTE status badge color class.
+     */
+    public function getStatusBadgeClassAttribute(): string
+    {
+        return match ($this->status) {
+            self::STATUS_SCHEDULED => 'badge-success',
+            self::STATUS_DELAYED => 'badge-warning',
+            self::STATUS_DEPARTED => 'badge-info',
+            self::STATUS_COMPLETED => 'badge-secondary',
+            self::STATUS_CANCELLED => 'badge-danger',
+            default => 'badge-light',
+        };
+    }
 }

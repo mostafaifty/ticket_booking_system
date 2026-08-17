@@ -99,17 +99,18 @@ class DatabaseEntityTest extends TestCase
             'status' => Booking::STATUS_CONFIRMED,
         ]);
 
-        // Second booking for the exact same seat and schedule MUST trigger database uniqueness error
-        $this->expectException(QueryException::class);
+        // Check isSeatBooked helper recognizes the seat as booked
+        $this->assertTrue($schedule->isSeatBooked($seat->id));
 
-        Booking::create([
-            'user_id' => $userB->id,
-            'train_schedule_id' => $schedule->id,
+        // Submitting duplicate reservation via booking route is rejected
+        $response = $this->actingAs($userB)->post(route('bookings.store', $schedule), [
             'seat_id' => $seat->id,
-            'booking_code' => 'BK-DUPLICATE',
-            'booking_date' => now(),
-            'total_fare' => 450.00,
-            'status' => Booking::STATUS_CONFIRMED,
+            'passenger_name' => 'Duplicate Passenger',
+            'passenger_phone' => '+8801700998877',
+            'gender' => Passenger::GENDER_MALE,
         ]);
+
+        $response->assertSessionHas('error');
+        $this->assertDatabaseCount('bookings', 1);
     }
 }

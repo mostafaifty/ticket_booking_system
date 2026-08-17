@@ -8,35 +8,87 @@
 @endsection
 
 @section('content')
+<!-- Main Welcome Banner -->
 <div class="row">
-    <!-- Main Welcome Banner -->
     <div class="col-12">
-        <div class="card card-primary card-outline shadow-sm">
-            <div class="card-body text-center py-5">
-                <div class="mb-3">
-                    <i class="fas fa-train fa-4x text-primary"></i>
+        <div class="card card-primary card-outline shadow-sm mb-4">
+            <div class="card-body text-center py-4">
+                <div class="mb-2">
+                    <i class="fas fa-train fa-3x text-primary"></i>
                 </div>
-                <h2 class="font-weight-bold text-dark mb-2">Welcome to Bangladesh Railway Online Booking</h2>
-                <p class="lead text-muted mx-auto" style="max-width: 650px;">
-                    Fast, reliable, and convenient online railway reservation system. Search available trains, view schedules, select seats, and manage your journey seamlessly.
+                <h2 class="font-weight-bold text-dark mb-1">Bangladesh Railway Online Reservation</h2>
+                <p class="text-muted mx-auto mb-4" style="max-width: 600px;">
+                    Search available trains, check departure times, view fares, and check seat availability across all major routes.
                 </p>
-                <div class="mt-4">
+
+                <!-- Embedded Search Bar -->
+                <div class="card bg-light border p-3 text-left shadow-none mx-auto" style="max-width: 950px;">
+                    <form method="GET" action="{{ route('trains.search') }}">
+                        <div class="row align-items-end">
+                            <div class="col-md-4 form-group mb-2">
+                                <label class="font-weight-bold text-sm text-dark">
+                                    <i class="fas fa-map-marker-alt text-danger mr-1"></i> From (Departure Station)
+                                </label>
+                                <select name="departure_station_id" class="form-control">
+                                    <option value="">-- Choose Origin Station --</option>
+                                    @if(isset($stations))
+                                        @foreach($stations as $station)
+                                            <option value="{{ $station->id }}">{{ $station->name }} ({{ $station->code }})</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                            </div>
+
+                            <div class="col-md-4 form-group mb-2">
+                                <label class="font-weight-bold text-sm text-dark">
+                                    <i class="fas fa-map-marker-alt text-success mr-1"></i> To (Arrival Station)
+                                </label>
+                                <select name="arrival_station_id" class="form-control">
+                                    <option value="">-- Choose Destination Station --</option>
+                                    @if(isset($stations))
+                                        @foreach($stations as $station)
+                                            <option value="{{ $station->id }}">{{ $station->name }} ({{ $station->code }})</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                            </div>
+
+                            <div class="col-md-2 form-group mb-2">
+                                <label class="font-weight-bold text-sm text-dark">
+                                    <i class="far fa-calendar-alt text-info mr-1"></i> Journey Date
+                                </label>
+                                <input type="date" name="journey_date" min="{{ date('Y-m-d') }}" value="{{ date('Y-m-d') }}" class="form-control">
+                            </div>
+
+                            <div class="col-md-2 form-group mb-2">
+                                <button type="submit" class="btn btn-primary btn-block font-weight-bold shadow-sm">
+                                    <i class="fas fa-search mr-1"></i> Search Trains
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="mt-3">
                     @auth
                         @if(auth()->user()->isAdmin())
-                            <a href="{{ route('admin.dashboard') }}" class="btn btn-primary btn-lg mr-2">
+                            <a href="{{ route('admin.dashboard') }}" class="btn btn-outline-primary btn-sm mr-2">
                                 <i class="fas fa-tachometer-alt mr-1"></i> Admin Dashboard
                             </a>
+                            <a href="{{ route('admin.schedules.index') }}" class="btn btn-outline-info btn-sm mr-2">
+                                <i class="fas fa-calendar-alt mr-1"></i> Manage Schedules
+                            </a>
                         @else
-                            <a href="{{ route('passenger.dashboard') }}" class="btn btn-success btn-lg mr-2">
+                            <a href="{{ route('passenger.dashboard') }}" class="btn btn-outline-success btn-sm mr-2">
                                 <i class="fas fa-tachometer-alt mr-1"></i> Passenger Dashboard
                             </a>
                         @endif
                     @else
-                        <a href="{{ route('login') }}" class="btn btn-primary btn-lg mr-2">
-                            <i class="fas fa-sign-in-alt mr-1"></i> Sign In to Book
+                        <a href="{{ route('login') }}" class="btn btn-outline-primary btn-sm mr-2">
+                            <i class="fas fa-sign-in-alt mr-1"></i> Sign In
                         </a>
-                        <a href="{{ route('register') }}" class="btn btn-outline-success btn-lg">
-                            <i class="fas fa-user-plus mr-1"></i> Create Free Account
+                        <a href="{{ route('register') }}" class="btn btn-outline-success btn-sm">
+                            <i class="fas fa-user-plus mr-1"></i> Register Free Account
                         </a>
                     @endauth
                 </div>
