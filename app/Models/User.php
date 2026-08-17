@@ -69,4 +69,12 @@ class User extends Authenticatable
     {
         return $this->role === self::ROLE_PASSENGER;
     }
+
+    /**
+     * Get all bookings placed by this user.
+     */
+    public function bookings(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Booking::class);
+    }
 }
