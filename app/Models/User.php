@@ -13,6 +13,12 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     /**
+     * Role constants
+     */
+    public const ROLE_ADMIN = 'admin';
+    public const ROLE_PASSENGER = 'passenger';
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var list<string>
@@ -20,6 +26,8 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'role',
+        'phone',
         'password',
     ];
 
@@ -44,5 +52,21 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Check if user is an administrator.
+     */
+    public function isAdmin(): bool
+    {
+        return $this->role === self::ROLE_ADMIN;
+    }
+
+    /**
+     * Check if user is a passenger.
+     */
+    public function isPassenger(): bool
+    {
+        return $this->role === self::ROLE_PASSENGER;
     }
 }
