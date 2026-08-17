@@ -94,6 +94,13 @@
                         </li>
 
                         <li class="nav-item">
+                            <a href="{{ route('passenger.profile') }}" class="nav-link {{ request()->routeIs('passenger.profile') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-user-cog"></i>
+                                <p>My Profile</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
                             <a href="#" class="nav-link disabled text-muted">
                                 <i class="nav-icon fas fa-search"></i>
                                 <p>Search Trains (Inc. 5)</p>

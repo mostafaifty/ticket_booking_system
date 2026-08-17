@@ -14,7 +14,7 @@ class StationFactory extends Factory
         $city = fake()->unique()->city();
         return [
             'name' => $city . ' Railway Station',
-            'code' => strtoupper(substr(preg_replace('/[^A-Za-z]/', '', $city), 0, 3)),
+            'code' => strtoupper(fake()->unique()->bothify('S##?')),
             'location' => $city . ', Bangladesh',
         ];
     }

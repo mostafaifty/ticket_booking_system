@@ -41,6 +41,11 @@
                     </li>
                     <!-- Menu Footer-->
                     <li class="user-footer">
+                        @if(auth()->user()->isPassenger())
+                            <a href="{{ route('passenger.profile') }}" class="btn btn-default btn-flat">
+                                <i class="fas fa-user-cog mr-1"></i> Profile
+                            </a>
+                        @endif
                         <form method="POST" action="{{ route('logout') }}" class="d-inline">
                             @csrf
                             <button type="submit" class="btn btn-default btn-flat float-right text-danger">

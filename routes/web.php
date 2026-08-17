@@ -33,6 +33,9 @@ Route::post('/logout', [LoginController::class, 'logout'])
 // Passenger Portal (Authenticated Users)
 Route::middleware(['auth'])->prefix('passenger')->name('passenger.')->group(function () {
     Route::get('/dashboard', [PassengerDashboardController::class, 'index'])->name('dashboard');
+    Route::get('/profile', [\App\Http\Controllers\Passenger\ProfileController::class, 'edit'])->name('profile');
+    Route::put('/profile', [\App\Http\Controllers\Passenger\ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/password', [\App\Http\Controllers\Passenger\ProfileController::class, 'updatePassword'])->name('password.update');
 });
 
 // Admin Control Panel (Authenticated Admin Role Required)

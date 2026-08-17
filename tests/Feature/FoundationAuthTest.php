@@ -127,4 +127,79 @@ class FoundationAuthTest extends TestCase
         $response->assertRedirect(route('login'));
         $this->assertGuest();
     }
+
+    public function test_passenger_can_view_profile(): void
+    {
+        $passenger = User::factory()->create(['role' => User::ROLE_PASSENGER]);
+
+        $response = $this->actingAs($passenger)->get(route('passenger.profile'));
+
+        $response->assertStatus(200);
+        $response->assertSee('Passenger Profile');
+        $response->assertSee($passenger->name);
+    }
+
+    public function test_passenger_can_update_profile(): void
+    {
+        $passenger = User::factory()->create([
+            'name' => 'Old Name',
+            'email' => 'old@example.com',
+            'phone' => '+8801700000000',
+            'role' => User::ROLE_PASSENGER,
+        ]);
+
+        $response = $this->actingAs($passenger)->put(route('passenger.profile.update'), [
+            'name' => 'Updated Name',
+            'email' => 'updated@example.com',
+            'phone' => '+8801799999999',
+        ]);
+
+        $response->assertRedirect(route('passenger.profile'));
+        $response->assertSessionHas('success');
+
+        $this->assertDatabaseHas('users', [
+            'id' => $passenger->id,
+            'name' => 'Updated Name',
+            'email' => 'updated@example.com',
+            'phone' => '+8801799999999',
+        ]);
+    }
+
+    public function test_passenger_can_update_password(): void
+    {
+        $passenger = User::factory()->create([
+            'password' => bcrypt('oldpassword123'),
+            'role' => User::ROLE_PASSENGER,
+        ]);
+
+        $response = $this->actingAs($passenger)->put(route('passenger.password.update'), [
+            'current_password' => 'oldpassword123',
+            'password' => 'newpassword456',
+            'password_confirmation' => 'newpassword456',
+        ]);
+
+        $response->assertRedirect(route('passenger.profile'));
+        $response->assertSessionHas('success');
+
+        $this->assertTrue(auth()->attempt([
+            'email' => $passenger->email,
+            'password' => 'newpassword456',
+        ]));
+    }
+
+    public function test_passenger_password_update_fails_with_invalid_current_password(): void
+    {
+        $passenger = User::factory()->create([
+            'password' => bcrypt('correctpassword123'),
+            'role' => User::ROLE_PASSENGER,
+        ]);
+
+        $response = $this->actingAs($passenger)->put(route('passenger.password.update'), [
+            'current_password' => 'wrongpassword',
+            'password' => 'newpassword456',
+            'password_confirmation' => 'newpassword456',
+        ]);
+
+        $response->assertSessionHasErrors('current_password');
+    }
 }
