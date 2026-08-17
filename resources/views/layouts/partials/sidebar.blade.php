@@ -56,30 +56,9 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="#" class="nav-link disabled text-muted">
-                                <i class="nav-icon fas fa-subway"></i>
-                                <p>Trains (Inc. 3)</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="#" class="nav-link disabled text-muted">
-                                <i class="nav-icon fas fa-map-marker-alt"></i>
-                                <p>Stations (Inc. 3)</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
                             <a href="{{ route('admin.schedules.index') }}" class="nav-link {{ request()->routeIs('admin.schedules.*') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-calendar-alt"></i>
-                                <p>Schedules</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="{{ route('trains.search') }}" class="nav-link {{ request()->routeIs('trains.search') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-search"></i>
-                                <p>Search Trains</p>
+                                <p>Manage Schedules</p>
                             </a>
                         </li>
 
@@ -87,6 +66,13 @@
                             <a href="{{ route('admin.bookings.index') }}" class="nav-link {{ request()->routeIs('admin.bookings.*') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-ticket-alt"></i>
                                 <p>All Bookings</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('trains.search') }}" class="nav-link {{ request()->routeIs('trains.search') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-search"></i>
+                                <p>Train Search Portal</p>
                             </a>
                         </li>
                     @else

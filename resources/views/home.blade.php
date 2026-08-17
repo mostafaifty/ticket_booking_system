@@ -99,16 +99,16 @@
 
 <!-- Incremental Project Features / Modules Overview -->
 <div class="row">
-    <div class="col-md-4">
-        <div class="card shadow-sm h-100">
+    <div class="col-md-4 mb-3">
+        <div class="card shadow-sm h-100 border-top border-primary" style="border-top-width: 4px !important;">
             <div class="card-body">
                 <div class="d-flex align-items-center mb-3">
-                    <div class="bg-primary text-white rounded p-3 mr-3">
+                    <div class="bg-primary text-white rounded p-3 mr-3 shadow-xs">
                         <i class="fas fa-search fa-2x"></i>
                     </div>
                     <div>
-                        <h5 class="font-weight-bold mb-0">Train Search & Schedule</h5>
-                        <small class="text-muted">Increment 5</small>
+                        <h5 class="font-weight-bold mb-0">Route Search & Schedule</h5>
+                        <span class="badge badge-primary">Real-Time</span>
                     </div>
                 </div>
                 <p class="text-muted mb-0">
@@ -118,39 +118,39 @@
         </div>
     </div>
 
-    <div class="col-md-4">
-        <div class="card shadow-sm h-100">
+    <div class="col-md-4 mb-3">
+        <div class="card shadow-sm h-100 border-top border-success" style="border-top-width: 4px !important;">
             <div class="card-body">
                 <div class="d-flex align-items-center mb-3">
-                    <div class="bg-success text-white rounded p-3 mr-3">
+                    <div class="bg-success text-white rounded p-3 mr-3 shadow-xs">
                         <i class="fas fa-chair fa-2x"></i>
                     </div>
                     <div>
                         <h5 class="font-weight-bold mb-0">Interactive Seat Selection</h5>
-                        <small class="text-muted">Increment 6</small>
+                        <span class="badge badge-success">Live Availability</span>
                     </div>
                 </div>
                 <p class="text-muted mb-0">
-                    Real-time visual seat map across coaches (AC, Shovon, Chair) with live occupancy status.
+                    Real-time visual seat map across coaches (AC Berth, Snigdha, Shovon Chair) with live occupancy status.
                 </p>
             </div>
         </div>
     </div>
 
-    <div class="col-md-4">
-        <div class="card shadow-sm h-100">
+    <div class="col-md-4 mb-3">
+        <div class="card shadow-sm h-100 border-top border-info" style="border-top-width: 4px !important;">
             <div class="card-body">
                 <div class="d-flex align-items-center mb-3">
-                    <div class="bg-info text-white rounded p-3 mr-3">
+                    <div class="bg-info text-white rounded p-3 mr-3 shadow-xs">
                         <i class="fas fa-ticket-alt fa-2x"></i>
                     </div>
                     <div>
-                        <h5 class="font-weight-bold mb-0">Instant Ticket Generation</h5>
-                        <small class="text-muted">Increment 7</small>
+                        <h5 class="font-weight-bold mb-0">Instant E-Ticket Vouchers</h5>
+                        <span class="badge badge-info">Printable Slips</span>
                     </div>
                 </div>
                 <p class="text-muted mb-0">
-                    Secure transaction processing with unique PNR confirmation and printable e-ticket vouchers.
+                    Secure transaction processing with unique PNR confirmation, cancellation workflows, and printable e-tickets.
                 </p>
             </div>
         </div>

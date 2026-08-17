@@ -375,6 +375,18 @@ document.addEventListener('DOMContentLoaded', function () {
             selectSeat(btn);
         }
     }
+
+    // Form submission loading state
+    const bookingForm = document.getElementById('seat-booking-form');
+    if (bookingForm) {
+        bookingForm.addEventListener('submit', function () {
+            const btn = document.getElementById('confirm-booking-btn');
+            if (btn && !btn.disabled) {
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-1"></i> Processing Reservation...';
+                btn.style.pointerEvents = 'none';
+            }
+        });
+    }
 });
 </script>
 @endsection
