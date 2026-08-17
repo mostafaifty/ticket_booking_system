@@ -16,6 +16,7 @@ class StationFactory extends Factory
             'name' => $city . ' Railway Station',
             'code' => strtoupper(fake()->unique()->bothify('S##?')),
             'location' => $city . ', Bangladesh',
+            'status' => Station::STATUS_ACTIVE,
         ];
     }
 }

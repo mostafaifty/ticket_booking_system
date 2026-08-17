@@ -10,11 +10,31 @@ class Station extends Model
 {
     use HasFactory;
 
+    public const STATUS_ACTIVE = 'active';
+    public const STATUS_INACTIVE = 'inactive';
+
     protected $fillable = [
         'name',
         'code',
         'location',
+        'status',
     ];
+
+    /**
+     * Scope query to only active stations.
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('status', self::STATUS_ACTIVE);
+    }
+
+    /**
+     * Check if station is active.
+     */
+    public function isActive(): bool
+    {
+        return $this->status === self::STATUS_ACTIVE;
+    }
 
     /**
      * Schedules where this station is the departure point.

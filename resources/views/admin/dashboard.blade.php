@@ -20,8 +20,8 @@
             <div class="icon">
                 <i class="fas fa-subway"></i>
             </div>
-            <a href="#" class="small-box-footer">
-                Manage Trains (Inc. 3) <i class="fas fa-arrow-circle-right"></i>
+            <a href="{{ route('admin.trains.index') }}" class="small-box-footer">
+                Manage Trains <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>
     </div>
@@ -35,8 +35,8 @@
             <div class="icon">
                 <i class="fas fa-map-marker-alt"></i>
             </div>
-            <a href="#" class="small-box-footer">
-                Manage Stations (Inc. 3) <i class="fas fa-arrow-circle-right"></i>
+            <a href="{{ route('admin.stations.index') }}" class="small-box-footer">
+                Manage Stations <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>
     </div>
@@ -86,22 +86,22 @@
                     Welcome to the Railway System Administrator Control Panel. From here you can manage stations, configure train fleets, assign schedules, and review passenger bookings.
                 </p>
                 <div class="list-group">
-                    <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                    <a href="{{ route('admin.stations.index') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                         <div>
                             <i class="fas fa-map-marker-alt text-primary mr-2"></i>
                             <strong>Station Management</strong>
                             <div class="text-xs text-muted">Create, edit, and organize train terminals and junction points.</div>
                         </div>
-                        <span class="badge badge-secondary badge-pill">Increment 3</span>
-                    </div>
-                    <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                        <span class="badge badge-success badge-pill"><i class="fas fa-check"></i> Active</span>
+                    </a>
+                    <a href="{{ route('admin.trains.index') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                         <div>
                             <i class="fas fa-subway text-success mr-2"></i>
                             <strong>Train Fleet & Coaches</strong>
                             <div class="text-xs text-muted">Configure train names, types, compartments, and seat layouts.</div>
                         </div>
-                        <span class="badge badge-secondary badge-pill">Increment 3</span>
-                    </div>
+                        <span class="badge badge-success badge-pill"><i class="fas fa-check"></i> Active</span>
+                    </a>
                     <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                         <div>
                             <i class="fas fa-calendar-check text-warning mr-2"></i>

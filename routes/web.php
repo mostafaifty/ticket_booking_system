@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\StationController as AdminStationController;
+use App\Http\Controllers\Admin\TrainController as AdminTrainController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\HomeController;
@@ -41,4 +43,6 @@ Route::middleware(['auth'])->prefix('passenger')->name('passenger.')->group(func
 // Admin Control Panel (Authenticated Admin Role Required)
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+    Route::resource('stations', AdminStationController::class);
+    Route::resource('trains', AdminTrainController::class);
 });

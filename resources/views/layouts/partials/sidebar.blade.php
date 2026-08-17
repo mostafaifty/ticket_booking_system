@@ -56,16 +56,16 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="#" class="nav-link disabled text-muted">
-                                <i class="nav-icon fas fa-subway"></i>
-                                <p>Trains (Inc. 3)</p>
+                            <a href="{{ route('admin.trains.index') }}" class="nav-link {{ request()->routeIs('admin.trains.*') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-subway text-info"></i>
+                                <p>Train Fleets</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a href="#" class="nav-link disabled text-muted">
-                                <i class="nav-icon fas fa-map-marker-alt"></i>
-                                <p>Stations (Inc. 3)</p>
+                            <a href="{{ route('admin.stations.index') }}" class="nav-link {{ request()->routeIs('admin.stations.*') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-map-marker-alt text-success"></i>
+                                <p>Railway Stations</p>
                             </a>
                         </li>
 
